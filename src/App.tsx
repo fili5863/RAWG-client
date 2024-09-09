@@ -13,7 +13,6 @@ function App() {
           base: `"nav" "main"`,
         }}
         gap='1'
-        color='blackAlpha.700'
         fontWeight='bold'
       >
         <GridItem

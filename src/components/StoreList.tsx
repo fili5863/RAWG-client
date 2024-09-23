@@ -20,6 +20,7 @@ const StoreList = ({ onSelectedStore, selectedStore }: Props) => {
   const { data, isLoading, error } = useStores();
   const numberOfStores = 19;
 
+  if (error) return null;
   return (
     <List spacing={4}>
       <Heading>Stores</Heading>

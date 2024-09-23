@@ -1,23 +1,37 @@
-import { Image } from '@chakra-ui/react';
-import { useFetchGames } from '../utils/fetchers';
+import { SimpleGrid } from '@chakra-ui/react';
+import GameCard from './GameCard';
+import GameCardSkeleton from './GameCardSkeleton';
+import GameCardContainer from './GameCardContainer';
+import useGames from '../utils/useGames';
+import { Genre } from '../utils/types';
 
-function GamesList() {
-  const { games } = useFetchGames();
+interface Props {
+  selectedGenre: Genre | null;
+}
+
+function GamesList({ selectedGenre }: Props) {
+  const { data, error, isLoading } = useGames(selectedGenre);
+  const skeletonsArr = [...Array(20).keys()];
 
   return (
-    <div>
-      {games &&
-        games.map(game => (
-          <div>
-            <h1>{game.name}</h1>
-            <Image
-              src={game.background_image}
-              boxSize='120px'
-              objectFit='contain'
-            ></Image>
-          </div>
+    <SimpleGrid
+      columns={{ sm: 1, md: 2, lg: 3 }}
+      spacing={3}
+    >
+      {isLoading &&
+        skeletonsArr.map(skeleton => (
+          <GameCardContainer key={skeleton}>
+            <GameCardSkeleton />
+          </GameCardContainer>
         ))}
-    </div>
+      {data &&
+        !isLoading &&
+        data.map(game => (
+          <GameCardContainer key={game.id}>
+            <GameCard game={game} />
+          </GameCardContainer>
+        ))}
+    </SimpleGrid>
   );
 }
 

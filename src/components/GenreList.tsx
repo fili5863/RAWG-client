@@ -10,13 +10,17 @@ import {
 } from '@chakra-ui/react';
 import useGenres from '../utils/useGenres';
 import { Genre } from '../utils/types';
+import { useState } from 'react';
 
 interface Props {
   onSelectedGenre: (genre: Genre) => void;
   selectedGenre: Genre | null;
 }
 const GenreList = ({ onSelectedGenre, selectedGenre }: Props) => {
+  const [isExpanded, setIsExpanded] = useState(false);
   const { data, isLoading, error } = useGenres();
+
+  const displayedGenres = isExpanded ? data : data?.slice(0, 5);
   const numberOfGenres = 19;
 
   if (error) return null;
@@ -35,7 +39,7 @@ const GenreList = ({ onSelectedGenre, selectedGenre }: Props) => {
         ))}
       {data &&
         !isLoading &&
-        data.map(genre => {
+        displayedGenres.map(genre => {
           return (
             <ListItem key={genre.id}>
               <HStack
@@ -62,6 +66,9 @@ const GenreList = ({ onSelectedGenre, selectedGenre }: Props) => {
             </ListItem>
           );
         })}
+      <Button onClick={() => setIsExpanded(!isExpanded)}>
+        {isExpanded ? 'Show Less' : 'Show More'}
+      </Button>
     </List>
   );
 };

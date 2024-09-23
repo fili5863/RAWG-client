@@ -3,15 +3,18 @@ import GameCard from './GameCard';
 import GameCardSkeleton from './GameCardSkeleton';
 import GameCardContainer from './GameCardContainer';
 import useGames from '../utils/useGames';
-import { Genre } from '../utils/types';
+import { Genre, Platform } from '../utils/types';
 
 interface Props {
   selectedGenre: Genre | null;
+  selectedPlatform: Platform | null;
 }
 
-function GamesList({ selectedGenre }: Props) {
-  const { data, error, isLoading } = useGames(selectedGenre);
+function GamesList({ selectedGenre, selectedPlatform }: Props) {
+  const { data, error, isLoading } = useGames(selectedGenre, selectedPlatform);
   const skeletonsArr = [...Array(20).keys()];
+
+  if (error) return null;
 
   return (
     <SimpleGrid

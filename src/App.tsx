@@ -7,10 +7,13 @@ import GenreList from './components/GenreList';
 import { useState } from 'react';
 import { Genre, Platform } from './utils/types';
 import PlatformSelector from './components/PlatformSelector';
+import { Store } from './utils/useStores';
+import StoreList from './components/StoreList';
 
 function App() {
   const [selectedGenre, setSelectedGenre] = useState<Genre | null>(null);
   const [selectedPlatform, setSelectedPlatform] = useState<Platform | null>(null);
+  const [selectedStore, setSelectedStore] = useState<Store | null>(null);
 
   console.log('sheesh', selectedGenre);
 
@@ -45,6 +48,10 @@ function App() {
               selectedGenre={selectedGenre}
               onSelectedGenre={genre => setSelectedGenre(genre)}
             />
+            <StoreList
+              selectedStore={selectedStore}
+              onSelectedStore={store => setSelectedStore(store)}
+            />
           </GridItem>
         </Show>
         <GridItem
@@ -58,6 +65,7 @@ function App() {
           <GamesList
             selectedGenre={selectedGenre}
             selectedPlatform={selectedPlatform}
+            selectedStore={selectedStore}
           />
         </GridItem>
       </Grid>

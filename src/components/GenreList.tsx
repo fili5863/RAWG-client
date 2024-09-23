@@ -1,4 +1,13 @@
-import { Button, HStack, Image, List, ListItem, SkeletonText, Spinner } from '@chakra-ui/react';
+import {
+  Button,
+  Heading,
+  HStack,
+  Image,
+  List,
+  ListItem,
+  SkeletonText,
+  Spinner,
+} from '@chakra-ui/react';
 import useGenres from '../utils/useGenres';
 import { Genre } from '../utils/types';
 
@@ -14,6 +23,7 @@ const GenreList = ({ onSelectedGenre, selectedGenre }: Props) => {
 
   return (
     <List spacing={4}>
+      <Heading>Genre</Heading>
       {isLoading &&
         Array.from({ length: numberOfGenres }).map((_, index) => (
           <ListItem key={index}>

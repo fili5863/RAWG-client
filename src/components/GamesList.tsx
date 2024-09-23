@@ -4,14 +4,16 @@ import GameCardSkeleton from './GameCardSkeleton';
 import GameCardContainer from './GameCardContainer';
 import useGames from '../utils/useGames';
 import { Genre, Platform } from '../utils/types';
+import { Store } from '../utils/useStores';
 
 interface Props {
   selectedGenre: Genre | null;
   selectedPlatform: Platform | null;
+  selectedStore: Store | null;
 }
 
-function GamesList({ selectedGenre, selectedPlatform }: Props) {
-  const { data, error, isLoading } = useGames(selectedGenre, selectedPlatform);
+function GamesList({ selectedGenre, selectedPlatform, selectedStore }: Props) {
+  const { data, error, isLoading } = useGames(selectedGenre, selectedPlatform, selectedStore);
   const skeletonsArr = [...Array(20).keys()];
 
   if (error) return null;
